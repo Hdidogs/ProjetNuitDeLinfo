@@ -17,6 +17,12 @@
         <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.js"></script>
     </head>
     <body>
+        <?php
+        include '../php/SQLHelper.php';
+        $co = new SQLHelper();
+        session_start();
+        $id_user=$_SESSION['id_user'];
+        ?>
         <div class="container">
             <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
                 <nav class="navbar fixed-top bg-white p-2 rounded-3 mx-0 shadow w-220px">
@@ -114,6 +120,38 @@
 
             <br>
             <br>
+        </div>
+
+        <!-- Modals --->
+
+        <div class="modal fade" id="connexion" tabindex="-1" aria-labelledby="connexion" aria-hidden="true">
+            <form action="../php/connexion.php" method="post">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Connexion</h5>
+                            <button type="button" class="btn btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal_body">
+                            <main class="form-signin w-100 m-auto">
+                                <div class="form-floating">
+                                    <input class="form-control" type="email" id="floatingInput" name="mail" placeholder="Adresse Mail" required>
+                                    <label for="floatingInput"><i class="fa-regular fa-envelope"></i> Adresse Mail</label>
+                                </div>
+                                <div class="form-floating">
+                                    <input class="form-control" type="password" id="floatingInput" name="mdp" placeholder="Mot de Passe" required>
+                                    <label for="floatingInput"><i class="fa-solid fa-key"></i> Mot de Passe</label>
+                                </div>
+                            </main>
+                        </div>
+                        <div class="modal_footer">
+                            <a href="inscription.php" class="btn btn-outline-primary" role="button" aria-disabled="true">Crée un compte</a>
+                            <button type="reset" class="btn btn-secondary" data-dismiss="modal">Réinitialiser</button>
+                            <button type="submit" class="btn btn-primary">Connexion</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
         </div>
     </body>
 </html>
