@@ -6,7 +6,11 @@ class SQLHelper {
         $servername = "localhost";
         $username = "root";
         $password = null;
+<<<<<<< HEAD
         $bddname = "lpb_ecolink";
+=======
+        $bddname = "mkr_are_ecolink.sql";
+>>>>>>> b6a3f5c60100803ae532303220ec575c37ed9c08
 
         try {
             $conn = new PDO("mysql:host=$servername;dbname=" . $bddname, $username, $password);
@@ -44,11 +48,12 @@ class SQLHelper {
     }
 
     public function inscription(String $nom, String $prenom, String $rue, String $cp, String $ville, String $mail, String $mdp): bool {
-        $co = new SQLHelper();
-        $add_user = $co->conbdd()->prepare("INSERT INTO user (id_user, nom, prenom, mail, mdp, rue, cp, ville, administrateur) VALUES (null, :nom, :prenom, :mail, :mdp, :rue, :cp, :ville, :administrateur)");
-        $add_user->execute(['nom'=>$nom, 'prenom'=>$prenom, 'rue'=>$rue, 'cp'=>$cp, 'ville'=>$ville, 'email'=>$mail, 'mdp' =>$mdp, 'administrateur'=>0]);
 
-        $id_client = $co->conbdd()->lastInsertId();
+            $co = new SQLHelper();
+            $add_user = $co->conbdd()->prepare("INSERT INTO user (nom, prenom, mail, mdp, rue, cp, ville, admin) VALUES ( :nom, :prenom, :mail, :mdp, :rue, :cp, :ville, :admin)");
+            $add_user->execute(['nom' => $nom, 'prenom' => $prenom, 'mail' => $mail, 'mdp' => $mdp, 'rue' => $rue, 'cp' => $cp, 'ville' => $ville, 'admin' => 0]);
+
+            $id_client = $co->conbdd()->lastInsertId();
 
         session_start();
         $_SESSION['id_user'] = $id_client;
@@ -69,7 +74,7 @@ class SQLHelper {
         $user = $res -> fetchAll();
 
         foreach ($user as $client) {
-            $admin = $client['administrateur'];
+            $admin = $client['admin'];
         }
 
         if ($admin == 1) {
