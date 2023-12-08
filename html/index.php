@@ -26,7 +26,7 @@
         session_start();
         $id_user=$_SESSION['id_user'];
         ?>
-    <div class=" hero-header mb-5">
+    <div class=" container-fluid bg-success hero-header mb-5">
         <div class="container">
             <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
                 <nav class="navbar fixed-top bg-white p-2 rounded-3 mx-0 shadow w-220px">
