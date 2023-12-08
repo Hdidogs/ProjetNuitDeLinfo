@@ -20,6 +20,7 @@
         <?php
         include '../php/SQLHelper.php';
         $co = new SQLHelper();
+
         session_start();
         $id_user=$_SESSION['id_user'];
         ?>
@@ -28,7 +29,9 @@
                 <nav class="navbar fixed-top bg-white p-2 rounded-3 mx-0 shadow w-220px">
                     <ul class="nav nav-pills">
                         <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="index.php"><i class="fa-solid fa-house"></i></a>
+                            <a href="#mettrelogo" class="d-block link-body-emphasis text-decoration-none" style="margin-right: 20px; margin-left: 15px">
+                                <img height="40" width="40" src="../assets/logo.png" class="rounded-circle">
+                            </a>
                         </li>
                         <li class="nav-item">
                             <a href="#" class="nav-link active "><i class="fa-regular fa-comment"></i> Chat</a>
@@ -42,17 +45,13 @@
                     </ul>
 
                     <?php
-                    if (!(isset($_SESSION['id_user'])) || isset($_SESSION['id_user']) <= 0) {
+                    if (!(isset($_SESSION['id_user']))) {
                         ?>
                         <div class="col-md-3 text-end">
                             <a role="button" class="btn btn-outline-primary me-2" href="inscription.php">Inscription</a>
                             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#connexion">Connexion</button>
                         </div>
-                    <?php }
-                    ?>
-
-                    <?php
-                    if (isset($_SESSION['id_user']) ) {
+                    <?php } else {
                         ?>
                         <div class="flex-shrink-0 dropdown" style="margin-right: 80px;">
                             <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
