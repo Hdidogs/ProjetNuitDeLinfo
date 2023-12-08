@@ -107,15 +107,20 @@
 
         <br>
 
-        <div class="bg-white text-dark p-5 text-center rounded-3 shadow">
-            <div class="d-flex align-items-center">
+
+        <section id="messages"></section>
+
+        <div class="d-flex align-items-center">
+
+        </div>
+
+        <footer>
+            <div class="collapse navbar-collapse">
                 <form method="post" action="">
-                    <input type="text" name="message"><input type="submit" value="envoyer" name="envoyer">
+                    <input type="text" name="message" style="text-align: center"><input type="submit" value="envoyer" name="envoyer" style="text-align: center">
                 </form>
             </div>
-
-            <section id="messages"></section>
-        </div>
+        </footer>
 
         <script>
             setInterval('loadMessagesGeneral', 500);

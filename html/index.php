@@ -41,7 +41,7 @@
                             <a href="Chat.php" class="nav-link active "><i class="fa-regular fa-comment"></i> Chat</a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link"><i class="fa-solid fa-gamepad"></i> Jeux</a>
+                            <a href="quizz.html" class="nav-link"><i class="fa-solid fa-gamepad"></i> Jeux</a>
                         </li>
                         <li class="nav-item">
                             <a href="#" class="nav-link"><i class="fa-regular fa-clipboard"></i> Leaderboard</a>
