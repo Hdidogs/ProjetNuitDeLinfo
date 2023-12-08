@@ -43,6 +43,7 @@
 </head>
 
 <body>
+<form method="post">
 <?php
 include '../php/SQLHelper.php';
 $co = new SQLHelper();
@@ -60,7 +61,7 @@ $co = new SQLHelper();
 
                 <?php
                 $bdd = $co->conbdd();
-                $req = $bdd->prepare("SELECT * FROM reponse INNER JOIN question ON reponse.ref_question = question.id_question WHERE categorie = 1;");
+                $req = $bdd->prepare("SELECT * FROM reponse INNER JOIN question ON reponse.ref_question = question.id_question WHERE ref_quizz = 1;");
                 $req->execute();
                 $result = $req->fetchAll( PDO::FETCH_ASSOC);
                 //var_dump($result);
@@ -105,7 +106,7 @@ $co = new SQLHelper();
 </div>
 <!-- About End -->
 
-
+</form>
 </body>
 </html>
 

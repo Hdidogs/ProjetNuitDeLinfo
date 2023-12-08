@@ -6,7 +6,7 @@ class SQLHelper {
         $servername = "localhost";
         $username = "root";
         $password = null;
-        $bddname = "are_ecolink";
+        $bddname = "lpb_ecolink";
 
         try {
             $conn = new PDO("mysql:host=$servername;dbname=" . $bddname, $username, $password);
