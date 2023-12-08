@@ -25,8 +25,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-            href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500&family=Poppins:wght@200;600;700&display=swap"
-            rel="stylesheet">
+        href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500&family=Poppins:wght@200;600;700&display=swap"
+        rel="stylesheet">
 
     <!-- Icon Font Stylesheet -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
@@ -44,14 +44,24 @@
 </head>
 <body>
 
-    <div class="container text-center">
-        <h1 class="display-4 text-white mb-3 animated slideInDown">Classement Best Donate</h1>
-        <h1 class="display-4 text-white mb-3 animated slideInDown"><br></h1>
+<div class="container text-center">
+    <h1 class="display-4 text-white mb-3 animated slideInDown">Classement Best Donate</h1>
+    <h1 class="display-4 text-white mb-3 animated slideInDown"><br></h1>
 
-        <h1 class="display-4 text-white mb-3 animated slideInDown"><table style="width: 100%">
-        <tr> <td>Rang</td><td>Nom</td><td>Prenom</td><td>Score</td><td>Badge</td><td>Arbre Plantés</td></tr>
+    <h1 class="display-4 text-white mb-3 animated slideInDown"><table style="width: 100%">
+            <tr> <td>Rang</td><td>Nom</td><td>Prenom</td><td>Badge</td><td>Arbre Plantés</td></tr>
             <tr><td><br></td></tr>
-            <tr><td>#1</td></tr>
+            <tr><td>#1</td><td><?php
+                    $bdd = new PDO('mysql:host=localhost;dbname=rmg_ecolink;charset=utf8', 'root', '');
+
+                    $reponse = $bdd->query('SELECT * FROM user') ;
+
+                    $donne = $reponse->fetch();
+
+                    echo $donne['nom'];
+
+                    $reponse->closeCursor() ;
+                    ?></td><td><?php echo $donne['prenom']; ?></td><td><?php echo $donne['']; ?></td></tr>
             <tr><td><br></td></tr>
             <tr><td>#2</td></tr>
             <tr><td><br></td></tr>
@@ -70,8 +80,8 @@
             <tr><td>#9</td></tr>
             <tr><td><br></td></tr>
             <tr><td>#10</td></tr>
-    </table></h1>
-    </div>
+        </table></h1>
+</div>
 </div>
 </figure>
 </div>
@@ -79,3 +89,4 @@
 
 </body>
 </html>
+
