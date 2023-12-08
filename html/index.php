@@ -102,7 +102,9 @@
 
                         <h1 class="d-flex justify-content-center compteur"><?=$compteur?> </h1>
             </div>
-                <p>Grace à vous</p>
+                <h1 class = grace > Grace à vous ! </h1>
+                <br>
+                <br>
                 <button type="button" class="btn btn-outline-success">Donation</button>
             </div>
 

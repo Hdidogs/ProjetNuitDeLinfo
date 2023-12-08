@@ -4,8 +4,6 @@
     max-width: 50%;
     font-size: 1000%;
 
-    /*box-sizing: inherit;
-     box-sizing: border-box;*/
 
  box-sizing: initial;
 
@@ -15,4 +13,16 @@
 .img{
     height: 50%;
     width: 50%;
+}
+
+.grace {
+    color : green;
+    height: 50%;
+    width: 100%;
+
+}
+
+.btn btn-outline-success {
+    color: green;
+
 }
