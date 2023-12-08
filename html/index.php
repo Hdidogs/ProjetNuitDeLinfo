@@ -2,7 +2,7 @@
 <html lang="en" xmlns="http://www.w3.org/1999/html">
     <head>
         <meta charset="UTF-8">
-        
+
         <title>Eco Link</title>
 
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
@@ -20,12 +20,13 @@
 
     </head>
     <body>
-        <?php
+    <?php
         include '../php/SQLHelper.php';
         $co = new SQLHelper();
         session_start();
         $id_user=$_SESSION['id_user'];
         ?>
+    <div class=" hero-header mb-5">
         <div class="container">
             <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
                 <nav class="navbar fixed-top bg-white p-2 rounded-3 mx-0 shadow w-220px">
@@ -134,6 +135,7 @@
             <br>
             <br>
         </div>
+    </div>
 
         <!-- Modals --->
 
