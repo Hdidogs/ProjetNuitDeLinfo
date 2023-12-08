@@ -1,23 +1,25 @@
 <?php
 
 class SQLHelper {
-    public function conbdd(): PDO {
+    public function conbdd(): PDO
+    {
         $servername = "localhost";
         $username = "root";
-        $password = "";
-        $bddname = "mkr_nuitinfo
-";
+        $password = null;
+        $bddname = "are_ecolink";
 
         try {
-            $conn = new PDO("mysql:host=$servername;dbname=".$bddname, $username, $password);
+            $conn = new PDO("mysql:host=$servername;dbname=" . $bddname, $username, $password);
 
             $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        } catch(PDOException $e) {
 
+        } catch (PDOException $e) {
+            var_dump($e);
         }
-
         return $conn;
     }
+
+
 
     public function con(String $mail, String $mdp): bool {
         $co = new SQLHelper();
