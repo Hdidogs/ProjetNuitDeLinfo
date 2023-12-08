@@ -95,18 +95,15 @@
             <!-- Section 1: Rectangle qui prend toute la longueur -->
             <div class="bg-white text-dark p-5 text-center rounded-3 shadow">
                 <div class="d-flex align-items-center">
-
-                        <figure class="d-flex justify-content-start">
-                            <img class="img" src="../assets/ARBRE2.jpg" alt="" >
-                        </figure>
-
-
-                        <h1 class="d-flex justify-content-center compteur"><?=$compteur?> </h1>
-            </div>
-                <h1 class = grace > Grace à vous ! </h1>
+                    <figure class="d-flex justify-content-start">
+                        <img class="img" src="../assets/ARBRE2.jpg" alt="">
+                    </figure>
+                    <h1 class="d-flex justify-content-center compteur"><?=$compteur?></h1>
+                </div>
+                <h1 class="grace">Grace à vous !</h1>
                 <br>
                 <br>
-                <button type="button" class="btn btn-outline-success">Donation</button>
+
             </div>
 
             <!-- Section 2: Deux carrés collés -->
@@ -115,10 +112,10 @@
                     <div class="col-md-6 bg-white text-dark p-4 rounded-3 shadow">
                         <h2>A Propos</h2>
                         <p>Contenu du premier carré de la deuxième section.</p>
-                        <a type="button" class="btn btn-outline-success" href="apropos.html">En savoir plus</a>
+                        <a type="button" class="btn btn-outline-success custom-btn" href="apropos.html">En savoir plus</a>
                     </div>
-                    <div class="col-md-6 bg-dark text-white p-4 rounded-3 shadow">
-                        <h2>Donation</h2>
+                    <div class="col-md-6 bg-white text-white p-4 rounded-3 shadow">
+                        <button type="button" class="btn btn-outline-success btn-lg">Donation</button>
                         <p>Contenu du deuxième carré de la deuxième section.</p>
                     </div>
                 </div>
@@ -131,7 +128,7 @@
             <div class="bg-white text-dark p-5 text-center rounded-3 shadow">
                 <h1>Quizz</h1>
                 <p>Contenu de la troisième section avec un seul carré.</p>
-                <a type="button" class="btn btn-outline-success" href="quizz.html">Allez au quizz</a>
+                <a type="button" class="btn btn-outline-success custom-btn" href="quizz.html">Allez au quizz</a>
             </div>
 
             <br>
