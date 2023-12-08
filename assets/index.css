@@ -1,0 +1,18 @@
+.compteur { color : green ;
+
+ max-height: 50%;
+    max-width: 50%;
+    font-size: 1000%;
+
+    /*box-sizing: inherit;
+     box-sizing: border-box;*/
+
+ box-sizing: initial;
+
+        min-width: 0;
+}
+
+.img{
+    height: 50%;
+    width: 50%;
+}

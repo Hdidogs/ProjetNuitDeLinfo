@@ -35,16 +35,6 @@ $compteur = 1000000000000   ;
 <div class="d-flex justify-content-center align-items-center "><figure class="d-flex justify-content-center " ><img  src="assets/ARBRE2.jpg" width="50%" height="50%"></figure><h1><?php echo $compteur ?></h1></div>
 
 
-
-
-
-
-
-
-
-
-
-
 </body>
 </html>
 
