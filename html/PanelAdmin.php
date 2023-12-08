@@ -22,34 +22,41 @@
     $co = new SQLHelper();
 
     session_start();
-    $id_user=$_SESSION['id_user'];
+    if (isset($_SESSION['id_user'])) {
+        $id_user = $_SESSION['id_user'];
+    } else {
+        $id_user = 0;
+    }
     ?>
     <div class="container">
         <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
             <nav class="navbar fixed-top bg-white p-2 rounded-3 mx-0 shadow w-220px">
                 <ul class="nav nav-pills">
                     <li class="nav-item">
-                        <a href="index.php#replacebylogo" class="d-block link-body-emphasis text-decoration-none" style="margin-right: 20px; margin-left: 15px">
+                        <a href="index.php#mettrelogo" class="d-block link-body-emphasis text-decoration-none" style="margin-right: 20px; margin-left: 15px">
                             <img height="40" width="40" src="../assets/logo.png" class="rounded-circle">
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#statistics">Statistiques</a>
+                        <a href="Chat.php" class="nav-link active "><i class="fa-regular fa-comment"></i> Chat</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#quizz">Quizz</a>
+                        <a href="#" class="nav-link"><i class="fa-solid fa-gamepad"></i> Jeux</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link"><i class="fa-regular fa-clipboard"></i> Leaderboard</a>
                     </li>
                 </ul>
-
-                <?php
-                if (!(isset($_SESSION['id_user']))) {
+                <?php if($id_user==0){
                     ?>
                     <div class="col-md-3 text-end">
                         <a role="button" class="btn btn-outline-primary me-2" href="inscription.php">Inscription</a>
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#connexion">Connexion</button>
                     </div>
+
                 <?php } else {
                     ?>
+
                     <div class="flex-shrink-0 dropdown" style="margin-right: 80px;">
                         <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                             <img height="32" width="32" src="../assets/user.png" class="rounded-circle">
@@ -58,6 +65,7 @@
                             <li>
                                 <a href="#" class="dropdown-item">Mes statistiques</a>
                             </li>
+
                             <?php
                             if ($co->checkAdmin($id_user)) {
                                 ?>
@@ -71,13 +79,11 @@
                                 <hr class="dropdown-divider">
                             </li>
                             <li>
-                                <a href="#" class="dropdown-item">Déconnexion</a>
+                                <a href="../php/deconnection.php" class="dropdown-item">Déconnexion</a>
                             </li>
                         </ul>
                     </div>
-                    <?php
-                }
-                ?>
+                <?php } ?>
             </nav>
         </header>
 
@@ -226,6 +232,23 @@
         <hr class="featurette-divider">
         <br>
 
+        <!-- Section Chat -->
+        <section id="chat" class="mt-3">
+            <h2 style="text-align: center">Chat</h2>
+
+            <!-- Ajouter des éléments pour afficher les statistiques spécifiques à votre application -->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Canaux</h5>
+                            <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#newcanal">Ajouter un canal</button>
+                            <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#supprcanal">Supprimer un canal</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
     </div>
 
     <!-- Modals --->
@@ -280,6 +303,65 @@
                         <a href="inscription.php" class="btn btn-outline-primary" role="button" aria-disabled="true">Crée un compte</a>
                         <button type="reset" class="btn btn-secondary" data-dismiss="modal">Réinitialiser</button>
                         <button type="submit" class="btn btn-primary">Connexion</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="modal fade" id="newcanal" tabindex="-1" aria-labelledby="newcanal" aria-hidden="true">
+        <form action="../php/canal/addCanal.php" method="get">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Ajouter un Canal</h5>
+                        <button type="button" class="btn btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal_body">
+                        <main class="form-signin w-100 m-auto">
+                            <div class="form-floating">
+                                <input class="form-control" type="text" id="floatingInput" name="nom" placeholder="Nom" required>
+                                <label for="floatingInput"><i class="fa-solid fa-pen"></i> Nom</label>
+                            </div>
+                            <div class="form-floating">
+                                <input class="form-control" type="text" id="floatingInput" name="theme" placeholder="Thème" required>
+                                <label for="floatingInput"><i class="fa-solid fa-magnifying-glass"></i> Thème</label>
+                            </div>
+                        </main>
+                    </div>
+                    <div class="modal_footer" style="text-align: right; margin: 15px">
+                        <button type="reset" class="btn btn-outline-primary" data-dismiss="modal">Réinitialiser</button>
+                        <button type="submit" class="btn btn-success">Crée le canal</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="modal fade" id="supprcanal" tabindex="-1" aria-labelledby="supprcanal" aria-hidden="true">
+        <form action="../php/canal/deleteCanal.php" method="get">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Supprimer un Canal</h5>
+                        <button type="button" class="btn btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal_body">
+                        <main class="form-signin w-100 m-auto" style="text-align: center; margin: 15px">
+                            <select class="form-select" name="id">
+                                <?php
+                                    $canal = $co->conbdd()->query("SELECT * FROM canal");
+
+                                    foreach ($canal as $un_canal) { ?>
+                                        <option value="<?= $un_canal['id_canal'] ?>"> <?= "[".$un_canal['id_canal']."]". " " .$un_canal['nom'] ?> </option>
+                                    <?php }
+                                ?>
+                            </select>
+                        </main>
+                    </div>
+                    <div class="modal_footer" style="text-align: right; margin: 15px">
+                        <button type="reset" class="btn btn-outline-primary" data-dismiss="modal">Réinitialiser</button>
+                        <button type="submit" class="btn btn-danger">Supprimer le canal</button>
                     </div>
                 </div>
             </div>

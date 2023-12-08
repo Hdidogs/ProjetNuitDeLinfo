@@ -1,20 +1,22 @@
 <?php
 
 class SQLHelper {
-    public function conbdd(): PDO {
+    public function conbdd(): PDO
+    {
         $servername = "localhost";
         $username = "root";
         $password = "";
         $bddname = "are_ecolink";
 
+
         try {
-            $conn = new PDO("mysql:host=$servername;dbname=".$bddname, $username, $password);
+            $conn = new PDO("mysql:host=$servername;dbname=" . $bddname, $username, $password);
 
             $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        } catch(PDOException $e) {
 
+        } catch (PDOException $e) {
+            var_dump($e);
         }
-
         return $conn;
     }
 
@@ -40,10 +42,10 @@ class SQLHelper {
         }
     }
 
-    public function inscription(String $nom, String $prenom, String $rue, String $cp, String $ville, String $mail, String $mdp): bool {
+    public function inscription(String $nom, String $prenom, String $rue, String $cp, String $ville, String $mail, String $pays, String $mdp): bool {
         $co = new SQLHelper();
-        $add_user = $co->conbdd()->prepare("INSERT INTO user (id_user, nom, prenom, mail, mdp, rue, cp, ville, administrateur) VALUES (null, :nom, :prenom, :mail, :mdp, :rue, :cp, :ville, :administrateur)");
-        $add_user->execute(['nom'=>$nom, 'prenom'=>$prenom, 'rue'=>$rue, 'cp'=>$cp, 'ville'=>$ville, 'email'=>$mail, 'mdp' =>$mdp, 'administrateur'=>0]);
+        $add_user = $co->conbdd()->prepare("INSERT INTO user (nom, prenom, mail, mdp, rue, cp, ville, pays, admin) VALUES ( :nom, :prenom, :mail, :mdp, :rue, :cp, :ville, :pays, :admin)");
+        $add_user->execute(['nom' => $nom, 'prenom' => $prenom, 'mail' => $mail, 'mdp' => $mdp, 'rue' => $rue, 'cp' => $cp, 'ville' => $ville, 'pays'=>$pays, 'admin' => 0]);
 
         $id_client = $co->conbdd()->lastInsertId();
 
@@ -66,7 +68,7 @@ class SQLHelper {
         $user = $res -> fetchAll();
 
         foreach ($user as $client) {
-            $admin = $client['administrateur'];
+            $admin = $client['admin'];
         }
 
         if ($admin == 1) {

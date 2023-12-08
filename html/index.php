@@ -22,19 +22,23 @@
         $co = new SQLHelper();
 
         session_start();
-        $id_user=$_SESSION['id_user'];
+        if (isset($_SESSION['id_user'])) {
+            $id_user = $_SESSION['id_user'];
+        } else {
+            $id_user = 0;
+        }
         ?>
         <div class="container">
             <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
                 <nav class="navbar fixed-top bg-white p-2 rounded-3 mx-0 shadow w-220px">
                     <ul class="nav nav-pills">
                         <li class="nav-item">
-                            <a href="#mettrelogo" class="d-block link-body-emphasis text-decoration-none" style="margin-right: 20px; margin-left: 15px">
+                            <a href="index.php#mettrelogo" class="d-block link-body-emphasis text-decoration-none" style="margin-right: 20px; margin-left: 15px">
                                 <img height="40" width="40" src="../assets/logo.png" class="rounded-circle">
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link active "><i class="fa-regular fa-comment"></i> Chat</a>
+                            <a href="Chat.php" class="nav-link active "><i class="fa-regular fa-comment"></i> Chat</a>
                         </li>
                         <li class="nav-item">
                             <a href="#" class="nav-link"><i class="fa-solid fa-gamepad"></i> Jeux</a>
@@ -43,16 +47,16 @@
                             <a href="#" class="nav-link"><i class="fa-regular fa-clipboard"></i> Leaderboard</a>
                         </li>
                     </ul>
-
-                    <?php
-                    if (!(isset($_SESSION['id_user']))) {
-                        ?>
+                    <?php if($id_user==0){
+                    ?>
                         <div class="col-md-3 text-end">
                             <a role="button" class="btn btn-outline-primary me-2" href="inscription.php">Inscription</a>
                             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#connexion">Connexion</button>
                         </div>
+
                     <?php } else {
                         ?>
+
                         <div class="flex-shrink-0 dropdown" style="margin-right: 80px;">
                             <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                                 <img height="32" width="32" src="../assets/user.png" class="rounded-circle">
@@ -61,6 +65,7 @@
                                 <li>
                                     <a href="#" class="dropdown-item">Mes statistiques</a>
                                 </li>
+
                                 <?php
                                 if ($co->checkAdmin($id_user)) {
                                     ?>
@@ -74,13 +79,11 @@
                                     <hr class="dropdown-divider">
                                 </li>
                                 <li>
-                                    <a href="#" class="dropdown-item">Déconnexion</a>
+                                    <a href="../php/deconnection.php" class="dropdown-item">Déconnexion</a>
                                 </li>
                             </ul>
                         </div>
-                        <?php
-                    }
-                    ?>
+                    <?php } ?>
                 </nav>
             </header>
 
@@ -89,7 +92,9 @@
 
             <!-- Section 1: Rectangle qui prend toute la longueur -->
             <div class="bg-white text-dark p-5 text-center rounded-3 shadow">
-                <h1>Arbre</h1>
+                <div class="d-flex align-items-center">
+                <div class="d-flex justify-content-center"> <src = asset/ARBRE2.jpg> <h1>Arbre</h1></div></div>
+
                 <p>Grace à vous</p>
                 <button type="button" class="btn btn-outline-success">Donation</button>
             </div>
@@ -121,32 +126,119 @@
             <br>
         </div>
 
+        <div class="container mt-5">
+            <div class="row">
+                <div class="col-md-6 bg-dark text-white p-4 rounded-3 shadow">
+                    <h2>Classement Arbre Planté</h2>
+                    <table>
+                        <thead>
+                            <tr>
+                                <td>Rang</td>
+                                <td>Nom</td>
+                                <td>Prenom</td>
+                                <td>Arbre Planté</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <?php
+                        $reponse = $co->conbdd()->query('SELECT * FROM `user` ORDER BY `argent_dep` DESC') ;
+
+                        $donne = $reponse->fetchAll();
+
+                        $reponse->closeCursor() ;
+                        $i=1    ;
+                        foreach ($donne as $element){
+                        ?>
+                            <tr>
+                                <td><?= "#" . $i++ . " " ?></td>
+                                <td><?= $element['nom'] . " " ?></td>
+                                <td><?= $element['prenom'] . " " ?></td>
+                                <?php
+                                $res = $co->conbdd()->prepare("SELECT * FROM arbre WHERE ref_user = :user");
+                                $res->execute(['user'=>$element['id_user']]);
+                                $arbre = $res -> fetchAll();
+                                $total = 0;
+
+                                foreach ($arbre as $un_arbre) {
+                                    $nbr_arbre = $un_arbre['nbr'];
+                                    $total = $total + $nbr_arbre;
+                                } ?>
+                                <td><?= $total . " " ?></td>
+                            </tr>
+                        <?php }?>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-md-6 bg-white text-dark p-4 rounded-3 shadow">
+                    <h2>Classement Score Quizz</h2>
+                    <table>
+                        <thead>
+                        <tr>
+                            <td>Rang</td>
+                            <td>Nom</td>
+                            <td>Prenom</td>
+                            <td>Score</td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <?php
+                        $reponse = $co->conbdd()->query('SELECT * FROM `userquizz` ORDER BY `score` DESC') ;
+
+                        $donne = $reponse->fetchAll();
+
+                        $reponse->closeCursor() ;
+                        $i=1;
+                        foreach ($donne as $element){
+                            ?>
+                            <tr>
+                                <?php
+                                $res = $co->conbdd()->prepare("SELECT * FROM user WHERE id_user = :user");
+                                $res->execute(['user'=>$element['ref_user']]);
+                                $user = $res -> fetchAll();
+                                foreach ($user as $un_user) {
+                                    $nom =  $un_user['nom'];
+                                    $prenom =  $un_user['prenom'];
+                                } ?>
+                                <td><?= "#" . $i++ . " " ?></td>
+                                <td><?= $nom . " " ?></td>
+                                <td><?= $prenom . " " ?></td>
+                                <td><?= $total . " " ?></td>
+                            </tr>
+                        <?php }?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
         <!-- Modals --->
 
         <div class="modal fade" id="connexion" tabindex="-1" aria-labelledby="connexion" aria-hidden="true">
             <form action="../php/connexion.php" method="post">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">Connexion</h5>
-                            <button type="button" class="btn btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal_body">
-                            <main class="form-signin w-100 m-auto">
-                                <div class="form-floating">
-                                    <input class="form-control" type="email" id="floatingInput" name="mail" placeholder="Adresse Mail" required>
-                                    <label for="floatingInput"><i class="fa-regular fa-envelope"></i> Adresse Mail</label>
-                                </div>
-                                <div class="form-floating">
-                                    <input class="form-control" type="password" id="floatingInput" name="mdp" placeholder="Mot de Passe" required>
-                                    <label for="floatingInput"><i class="fa-solid fa-key"></i> Mot de Passe</label>
-                                </div>
-                            </main>
-                        </div>
-                        <div class="modal_footer">
-                            <a href="inscription.php" class="btn btn-outline-primary" role="button" aria-disabled="true">Crée un compte</a>
-                            <button type="reset" class="btn btn-secondary" data-dismiss="modal">Réinitialiser</button>
-                            <button type="submit" class="btn btn-primary">Connexion</button>
+                <div class="connexion">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Connexion</h5>
+                                <button type="button" class="btn btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal_body">
+                                <main class="form-signin w-100 m-auto">
+                                    <div class="form-floating">
+                                        <input class="form-control" type="email" id="floatingInput" name="mail" placeholder="Adresse Mail" required>
+                                        <label for="floatingInput"><i class="fa-regular fa-envelope"></i> Adresse Mail</label>
+                                    </div>
+                                    <div class="form-floating">
+                                        <input class="form-control" type="password" id="floatingInput" name="mdp" placeholder="Mot de Passe" required>
+                                        <label for="floatingInput"><i class="fa-solid fa-key"></i> Mot de Passe</label>
+                                    </div>
+                                </main>
+                            </div>
+                            <div class="modal_footer">
+                                <a href="inscription.php" class="btn bt n-outline-primary" role="button" aria-disabled="true">Crée un compte</a>
+                                <button type="reset" class="btn btn-secondary" data-dismiss="modal">Réinitialiser</button>
+                                <button type="submit" class="btn btn-primary">Connexion</button>
+                            </div>
                         </div>
                     </div>
                 </div>
