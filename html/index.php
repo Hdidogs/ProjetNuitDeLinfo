@@ -15,6 +15,9 @@
         <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
         <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.js"></script>
+
+        <link href="../assets/index.css" rel= "stylesheet">
+
     </head>
     <body>
         <?php
@@ -87,10 +90,18 @@
 
             <br>
             <br>
-
+            <?php $compteur = 100 ; ?>
             <!-- Section 1: Rectangle qui prend toute la longueur -->
             <div class="bg-white text-dark p-5 text-center rounded-3 shadow">
-                <h1>Arbre</h1>
+                <div class="d-flex align-items-center">
+
+                        <figure class="d-flex justify-content-start">
+                            <img class="img" src="../assets/ARBRE2.jpg" alt="" >
+                        </figure>
+
+
+                        <h1 class="d-flex justify-content-center compteur"><?=$compteur?> </h1>
+            </div>
                 <p>Grace à vous</p>
                 <button type="button" class="btn btn-outline-success">Donation</button>
             </div>
@@ -147,7 +158,7 @@
                             </main>
                         </div>
                         <div class="modal_footer">
-                            <a href="inscription.php" class="btn btn-outline-primary" role="button" aria-disabled="true">Crée un compte</a>
+                            <a href="../php/inscription.php" class="btn btn-outline-primary" role="button" aria-disabled="true">Crée un compte</a>
                             <button type="reset" class="btn btn-secondary" data-dismiss="modal">Réinitialiser</button>
                             <button type="submit" class="btn btn-primary">Connexion</button>
                         </div>
