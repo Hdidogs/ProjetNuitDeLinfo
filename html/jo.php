@@ -42,6 +42,28 @@
 
     <!-- Template Stylesheet -->
     <link href="../css/jo.css" rel="stylesheet">
+    <style>
+        #puzzle-container {
+            display: grid;
+            grid-template-columns: repeat(3, 100px);
+            grid-template-rows: repeat(3, 100px);
+            grid-gap: 5px;
+        }
+
+        .puzzle-piece {
+            width: 100px;
+            height: 100px;
+            background: url("../assets/Paris-2024.webp");
+            background-size: 1600px 900px; /* Taille de l'image */
+            background-repeat: no-repeat;
+            background-color: #ccc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            font-size: 20px;
+        }
+    </style>
 </head>
 
 <body>
@@ -60,52 +82,78 @@
 <!-- Hero Start -->
 <div class="container-fluid bg-primary hero-header mb-5">
     <div class="container text-center">
-        <h1 class="display-4 text-white mb-3 animated slideInDown">Quizz</h1>
+        <h1 class="display-4 text-white mb-3 animated slideInDown">Puzzle</h1>
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb justify-content-center mb-0 animated slideInDown">
                 <li class="breadcrumb-item"><a class="text-white" href="index.php">Acceuil</a></li>
-                <li class="breadcrumb-item text-white active" aria-current="page">Quizz</li>
+                <li class="breadcrumb-item text-white active" aria-current="page">Puzzle</li>
             </ol>
         </nav>
     </div>
 </div>
 <!-- Hero End -->
 
+<div id="puzzle-container"></div>
 
-<!-- Feature Start -->
-<div class="container text-center">
-    <h2 class="display-4 text-white mb-3 animated slideInDown">Categories</h2>
-</div>
-<div class="container-fluid py-5">
-    <div class="container">
-        <div class="row g-4" >
-            <div class="col-lg-4 wow fadeIn" data-wow-delay="0.1s">
-                <div class="feature-item position-relative bg-primary text-center p-3" >
-                    <div class="border py-5 px-3">
-                        <i class="fa fa-leaf fa-3x text-dark mb-4"></i>
-                        <a class="accordion-button" href="categorie1.php"><h5 class="text-black-50 mb-0">Nature</h5></a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 wow fadeIn" data-wow-delay="0.3s">
-                <div class="feature-item position-relative bg-primary text-center p-3">
-                    <div class="border py-5 px-3">
-                        <i class="fa fa-tint-slash fa-3x text-dark mb-4"></i>
-                        <a class="accordion-button" href="categorie2.php"><h5 class="text-black-50 mb-0">Tris selectif</h5></a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 wow fadeIn" data-wow-delay="0.5s">
-                <div class="feature-item position-relative bg-primary text-center p-3">
-                    <div class="border py-5 px-3">
-                        <i class="fa fa-times fa-3x text-dark mb-4"></i>
-                        <a class="accordion-button" href="categorie3.php"><h5 class="text-black-50 mb-0">Pollution</h5></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+<script>
+    // Fonction pour mélanger le puzzle
+    function shuffleArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+    }
+
+    // Fonction pour créer le puzzle
+    function createPuzzle() {
+        const container = document.getElementById("puzzle-container");
+        const pieces = [];
+
+        // Créer les pièces du puzzle
+        for (let i = 0; i < 8; i++) {
+            const piece = document.createElement("div");
+            piece.className = "puzzle-piece";
+            piece.style.backgroundImage = "url('votre_image.jpg')"; // Remplacez par le chemin de votre image
+            pieces.push(piece);
+        }
+
+        // Ajouter la pièce vide
+        const emptyPiece = document.createElement("div");
+        emptyPiece.className = "puzzle-piece";
+        emptyPiece.style.backgroundColor = "transparent";
+        pieces.push(emptyPiece);
+
+        // Ajouter les pièces au conteneur
+        shuffleArray(pieces);
+        pieces.forEach(piece => container.appendChild(piece));
+
+        // Ajouter un gestionnaire d'événements aux pièces du puzzle
+        pieces.forEach(piece => {
+            piece.addEventListener("click", () => {
+                if (isAdjacent(piece, emptyPiece)) {
+                    // Échanger les positions des pièces
+                    const temp = piece.style.backgroundImage;
+                    piece.style.backgroundImage = emptyPiece.style.backgroundImage;
+                    emptyPiece.style.backgroundImage = temp;
+                }
+            });
+        });
+    }
+
+    // Vérifier si deux pièces sont adjacentes
+    function isAdjacent(piece1, piece2) {
+        const index1 = Array.from(piece1.parentElement.children).indexOf(piece1);
+        const index2 = Array.from(piece2.parentElement.children).indexOf(piece2);
+
+        return Math.abs(index1 - index2) === 1 || Math.abs(index1 - index2) === 3;
+    }
+
+    // Appeler la fonction pour créer le puzzle
+    createPuzzle();
+</script>
+
+
+
 
 <!-- Feature End -->
 
