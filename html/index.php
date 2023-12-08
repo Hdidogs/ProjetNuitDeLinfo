@@ -21,7 +21,11 @@
         include '../php/SQLHelper.php';
         $co = new SQLHelper();
         session_start();
-        $id_user=$_SESSION['id_user'];
+        if (isset($_SESSION['id_user'])) {
+            $id_user = $_SESSION['id_user'];
+        } else {
+            $id_user = 0;
+        }
         ?>
         <div class="container">
             <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
@@ -40,20 +44,16 @@
                             <a href="#" class="nav-link"><i class="fa-regular fa-clipboard"></i> Leaderboard</a>
                         </li>
                     </ul>
-
                     <?php
-                    if (!(isset($_SESSION['id_user'])) || isset($_SESSION['id_user']) <= 0) {
-                        ?>
+                    if($id_user==0){
+
+
+                    ?>
                         <div class="col-md-3 text-end">
                             <a role="button" class="btn btn-outline-primary me-2" href="inscription.php">Inscription</a>
                             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#connexion">Connexion</button>
                         </div>
-                    <?php }
-                    ?>
-
-                    <?php
-                    if (isset($_SESSION['id_user']) ) {
-                        ?>
+                        <?php } else {?>
                         <div class="flex-shrink-0 dropdown" style="margin-right: 80px;">
                             <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                                 <img height="32" width="32" src="../assets/user.png" class="rounded-circle">
@@ -62,6 +62,7 @@
                                 <li>
                                     <a href="#" class="dropdown-item">Mes statistiques</a>
                                 </li>
+
                                 <?php
                                 if ($co->checkAdmin($id_user)) {
                                     ?>
@@ -75,22 +76,24 @@
                                     <hr class="dropdown-divider">
                                 </li>
                                 <li>
-                                    <a href="#" class="dropdown-item">Déconnexion</a>
+                                    <a href="../php/deconnection.php" class="dropdown-item">Déconnexion</a>
                                 </li>
                             </ul>
                         </div>
-                        <?php
-                    }
-                    ?>
+                    <?php } ?>
                 </nav>
             </header>
 
             <br>
             <br>
 
+            <?= $id_user ?>
+
             <!-- Section 1: Rectangle qui prend toute la longueur -->
             <div class="bg-white text-dark p-5 text-center rounded-3 shadow">
-                <h1>Arbre</h1>
+                <div class="d-flex align-items-center">
+                <div class="d-flex justify-content-center"> <src = asset/ARBRE2.jpg> <h1>Arbre</h1></div></div>
+
                 <p>Grace à vous</p>
                 <button type="button" class="btn btn-outline-success">Donation</button>
             </div>
@@ -126,28 +129,30 @@
 
         <div class="modal fade" id="connexion" tabindex="-1" aria-labelledby="connexion" aria-hidden="true">
             <form action="../php/connexion.php" method="post">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">Connexion</h5>
-                            <button type="button" class="btn btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal_body">
-                            <main class="form-signin w-100 m-auto">
-                                <div class="form-floating">
-                                    <input class="form-control" type="email" id="floatingInput" name="mail" placeholder="Adresse Mail" required>
-                                    <label for="floatingInput"><i class="fa-regular fa-envelope"></i> Adresse Mail</label>
-                                </div>
-                                <div class="form-floating">
-                                    <input class="form-control" type="password" id="floatingInput" name="mdp" placeholder="Mot de Passe" required>
-                                    <label for="floatingInput"><i class="fa-solid fa-key"></i> Mot de Passe</label>
-                                </div>
-                            </main>
-                        </div>
-                        <div class="modal_footer">
-                            <a href="inscription.php" class="btn btn-outline-primary" role="button" aria-disabled="true">Crée un compte</a>
-                            <button type="reset" class="btn btn-secondary" data-dismiss="modal">Réinitialiser</button>
-                            <button type="submit" class="btn btn-primary">Connexion</button>
+                <div class="connexion">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Connexion</h5>
+                                <button type="button" class="btn btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal_body">
+                                <main class="form-signin w-100 m-auto">
+                                    <div class="form-floating">
+                                        <input class="form-control" type="email" id="floatingInput" name="mail" placeholder="Adresse Mail" required>
+                                        <label for="floatingInput"><i class="fa-regular fa-envelope"></i> Adresse Mail</label>
+                                    </div>
+                                    <div class="form-floating">
+                                        <input class="form-control" type="password" id="floatingInput" name="mdp" placeholder="Mot de Passe" required>
+                                        <label for="floatingInput"><i class="fa-solid fa-key"></i> Mot de Passe</label>
+                                    </div>
+                                </main>
+                            </div>
+                            <div class="modal_footer">
+                                <a href="inscription.php" class="btn bt n-outline-primary" role="button" aria-disabled="true">Crée un compte</a>
+                                <button type="reset" class="btn btn-secondary" data-dismiss="modal">Réinitialiser</button>
+                                <button type="submit" class="btn btn-primary">Connexion</button>
+                            </div>
                         </div>
                     </div>
                 </div>

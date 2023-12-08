@@ -10,16 +10,12 @@ $mail = $_POST['mail'];
 $mdp = $_POST['mdp'];
 $mdpconfirm = $_POST['conf_mdp'];
 $pays= $_POST['pays'];
-$admin= $_POST['admin'];
-$argent_dep=$_POST['argent_dep'];
-$grade=$_POST['grade'];
-
 
 if ($mdp == $mdpconfirm) {
     $newMdp = password_hash($mdp, PASSWORD_DEFAULT);
 
     $co = new SQLHelper();
-    $requete = $co ->inscription($nom, $prenom, $mail, $mdp, $rue, $cp, $ville, $pays, $admin, $argent_dep, $grade);
+    $requete = $co ->inscription( $nom,  $prenom,  $rue,  $cp,  $ville,  $mail,  $newMdp);
 } else {
     header("Location: ../html/inscription.php");
 }
