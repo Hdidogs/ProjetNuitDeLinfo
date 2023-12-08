@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : jeu. 07 déc. 2023 à 18:53
+-- Généré le : ven. 08 déc. 2023 à 00:00
 -- Version du serveur : 5.7.36
 -- Version de PHP : 7.4.26
 
@@ -20,6 +20,21 @@ SET time_zone = "+00:00";
 --
 -- Base de données : `are_ecolink`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `arbre`
+--
+
+DROP TABLE IF EXISTS `arbre`;
+CREATE TABLE IF NOT EXISTS `arbre` (
+  `id_arbre` int(11) NOT NULL AUTO_INCREMENT,
+  `nbr` int(11) NOT NULL,
+  `ref_user` int(11) NOT NULL,
+  PRIMARY KEY (`id_arbre`),
+  KEY `fk_arbre_user` (`ref_user`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -98,6 +113,21 @@ CREATE TABLE IF NOT EXISTS `reponse` (
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `transac`
+--
+
+DROP TABLE IF EXISTS `transac`;
+CREATE TABLE IF NOT EXISTS `transac` (
+  `id_transac` int(11) NOT NULL AUTO_INCREMENT,
+  `montant` float NOT NULL,
+  `ref_user` int(11) NOT NULL,
+  PRIMARY KEY (`id_transac`),
+  KEY `fk_transac_user` (`ref_user`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `user`
 --
 
@@ -113,8 +143,8 @@ CREATE TABLE IF NOT EXISTS `user` (
   `ville` varchar(55) NOT NULL,
   `pays` varchar(55) NOT NULL,
   `admin` tinyint(1) NOT NULL,
-  `argent_dep` float NOT NULL,
-  `grade` varchar(44) NOT NULL,
+  `argent_dep` float DEFAULT NULL,
+  `grade` varchar(44) DEFAULT NULL,
   PRIMARY KEY (`id_user`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -138,6 +168,12 @@ CREATE TABLE IF NOT EXISTS `userquizz` (
 --
 
 --
+-- Contraintes pour la table `arbre`
+--
+ALTER TABLE `arbre`
+  ADD CONSTRAINT `fk_arbre_user` FOREIGN KEY (`ref_user`) REFERENCES `user` (`id_user`);
+
+--
 -- Contraintes pour la table `message`
 --
 ALTER TABLE `message`
@@ -155,6 +191,12 @@ ALTER TABLE `quizz`
 --
 ALTER TABLE `reponse`
   ADD CONSTRAINT `fk_reponse_question` FOREIGN KEY (`ref_question`) REFERENCES `question` (`id_question`);
+
+--
+-- Contraintes pour la table `transac`
+--
+ALTER TABLE `transac`
+  ADD CONSTRAINT `fk_transac_user` FOREIGN KEY (`ref_user`) REFERENCES `user` (`id_user`);
 
 --
 -- Contraintes pour la table `userquizz`
