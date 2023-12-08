@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : ven. 08 déc. 2023 à 00:00
+-- Généré le : ven. 08 déc. 2023 à 02:44
 -- Version du serveur : 5.7.36
 -- Version de PHP : 7.4.26
 
@@ -34,7 +34,15 @@ CREATE TABLE IF NOT EXISTS `arbre` (
   `ref_user` int(11) NOT NULL,
   PRIMARY KEY (`id_arbre`),
   KEY `fk_arbre_user` (`ref_user`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `arbre`
+--
+
+INSERT INTO `arbre` (`id_arbre`, `nbr`, `ref_user`) VALUES
+(1, 2222, 1),
+(2, 45, 1);
 
 -- --------------------------------------------------------
 
@@ -77,7 +85,9 @@ DROP TABLE IF EXISTS `question`;
 CREATE TABLE IF NOT EXISTS `question` (
   `id_question` int(11) NOT NULL AUTO_INCREMENT,
   `question` varchar(55) NOT NULL,
-  PRIMARY KEY (`id_question`)
+  `ref_quizz` int(11) NOT NULL,
+  PRIMARY KEY (`id_question`),
+  KEY `fk_question_quizz` (`ref_quizz`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -90,9 +100,7 @@ DROP TABLE IF EXISTS `quizz`;
 CREATE TABLE IF NOT EXISTS `quizz` (
   `id_quizz` int(11) NOT NULL AUTO_INCREMENT,
   `theme` varchar(55) NOT NULL,
-  `ref_question` int(11) NOT NULL,
-  PRIMARY KEY (`id_quizz`),
-  KEY `fk_quizz_question` (`ref_question`)
+  PRIMARY KEY (`id_quizz`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -105,6 +113,7 @@ DROP TABLE IF EXISTS `reponse`;
 CREATE TABLE IF NOT EXISTS `reponse` (
   `id_reponse` int(11) NOT NULL AUTO_INCREMENT,
   `reponse` varchar(100) NOT NULL,
+  `vrai` tinyint(1) NOT NULL,
   `ref_question` int(11) NOT NULL,
   PRIMARY KEY (`id_reponse`),
   KEY `fk_reponse_question` (`ref_question`)
@@ -123,7 +132,15 @@ CREATE TABLE IF NOT EXISTS `transac` (
   `ref_user` int(11) NOT NULL,
   PRIMARY KEY (`id_transac`),
   KEY `fk_transac_user` (`ref_user`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `transac`
+--
+
+INSERT INTO `transac` (`id_transac`, `montant`, `ref_user`) VALUES
+(1, 4545, 1),
+(2, 44, 1);
 
 -- --------------------------------------------------------
 
@@ -146,7 +163,14 @@ CREATE TABLE IF NOT EXISTS `user` (
   `argent_dep` float DEFAULT NULL,
   `grade` varchar(44) DEFAULT NULL,
   PRIMARY KEY (`id_user`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `user`
+--
+
+INSERT INTO `user` (`id_user`, `nom`, `prenom`, `mail`, `mdp`, `rue`, `cp`, `ville`, `pays`, `admin`, `argent_dep`, `grade`) VALUES
+(1, 'test', 'test', 'a', 'zqdesfrgd', 'zqdesf', 'dqesf', 'dsf', 'qdsf', 1, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -181,10 +205,10 @@ ALTER TABLE `message`
   ADD CONSTRAINT `fk_message_user` FOREIGN KEY (`ref_user`) REFERENCES `user` (`id_user`);
 
 --
--- Contraintes pour la table `quizz`
+-- Contraintes pour la table `question`
 --
-ALTER TABLE `quizz`
-  ADD CONSTRAINT `fk_quizz_question` FOREIGN KEY (`ref_question`) REFERENCES `question` (`id_question`);
+ALTER TABLE `question`
+  ADD CONSTRAINT `fk_question_quizz` FOREIGN KEY (`ref_quizz`) REFERENCES `quizz` (`id_quizz`);
 
 --
 -- Contraintes pour la table `reponse`
