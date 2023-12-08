@@ -112,6 +112,7 @@
                     <div class="col-md-6 bg-white text-dark p-4 rounded-3 shadow">
                         <h2>A Propos</h2>
                         <p>Contenu du premier carré de la deuxième section.</p>
+                        <a type="button" class="btn btn-outline-success" href="apropos.html">En savoir plus</a>
                     </div>
                     <div class="col-md-6 bg-dark text-white p-4 rounded-3 shadow">
                         <h2>Donation</h2>
@@ -127,6 +128,7 @@
             <div class="bg-white text-dark p-5 text-center rounded-3 shadow">
                 <h1>Quizz</h1>
                 <p>Contenu de la troisième section avec un seul carré.</p>
+                <a type="button" class="btn btn-outline-success" href="quizz.html">Allez au quizz</a>
             </div>
 
             <br>
