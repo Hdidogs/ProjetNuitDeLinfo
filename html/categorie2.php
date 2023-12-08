@@ -60,7 +60,7 @@ $co = new SQLHelper();
 
                 <?php
                 $bdd = $co->conbdd();
-                $req = $bdd->prepare("SELECT * FROM reponse INNER JOIN question ON reponse.ref_question = question.id_question WHERE categorie = 2 ");
+                $req = $bdd->prepare("SELECT * FROM reponse INNER JOIN question ON reponse.ref_question = question.id_question WHERE ref_quizz = 2 ");
                 $req->execute();
                 $result = $req->fetchAll( PDO::FETCH_ASSOC);
                 //var_dump($result);
